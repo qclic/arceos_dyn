@@ -42,6 +42,10 @@ pub fn epochoffset_nanos() -> u64 {
 pub fn set_oneshot_timer(deadline_ns: u64) {
     let lapic = super::apic::local_apic();
     let now_ns = crate::time::monotonic_time_nanos();
+    // debug!(
+    //     "Setting one-shot timer: now_ns={}, deadline_ns={}",
+    //     now_ns, deadline_ns
+    // );
     unsafe {
         if now_ns < deadline_ns {
             let apic_ticks = NANOS_TO_LAPIC_TICKS_RATIO.mul_trunc(deadline_ns - now_ns);
