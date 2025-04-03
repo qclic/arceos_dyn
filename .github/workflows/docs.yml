@@ -20,6 +20,10 @@ jobs:
       with:
         toolchain: ${{ env.rust-toolchain }}
     - uses: Swatinem/rust-cache@v2
+    - name: Setup the musl toolchain
+      uses: arceos-org/setup-musl@v0.1
+      with:
+        arch: x86_64
     - name: Build docs
       continue-on-error: ${{ github.ref != env.default-branch && github.event_name != 'pull_request' }}
       run: make doc_check_missing
